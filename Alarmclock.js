@@ -2,10 +2,12 @@
 ///////////////////////////////////
 //How to use:
 // 1) put the file name, and then time into the variables.
+// 		ex: 6.00 for 6AM, decimals represent minutes,
+//		so 6.30 stands for 6:30AM.  Time is in 24 hours.
 // 2) Run using Node.js
 ///////////////////////////////////
 var videoAlarm = "test.mp4";
-var wakeUpTime = 6.30 ; //6.00 for 6AM, decimals represent minutes
+var wakeUpTime = 10.00 ; 
 ///////////////////////////////////
 
 var util = require('util');
@@ -15,7 +17,7 @@ var wakeHour = Math.floor(wakeUpTime);
 wakeHour = (wakeHour < 10 ? "0" : "") + wakeHour;
 var wakeMin = (wakeUpTime + "").split(".")[1];
 if(wakeMin == null){
-	wakeMin = 0;
+	wakeMin = "0";
 }
 wakeMin = (wakeMin < 10 ? "0" : "") + wakeMin;
 
@@ -25,6 +27,8 @@ wakeMin = (wakeMin < 10 ? "0" : "") + wakeMin;
 var refreshId = setInterval(function() {
 	util.print("\u001b[2J\u001b[0;0H"); //clears screen
 	console.log(getDateTime());
+	console.log(""+wakeHour+wakeMin);
+	console.log(getHourMin());
 	if(getHourMin() == ""+wakeHour+wakeMin){
 		cp.exec("test.mp4");
 		clearInterval(refreshId);
