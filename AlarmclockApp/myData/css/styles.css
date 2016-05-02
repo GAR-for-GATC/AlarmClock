@@ -1,0 +1,10 @@
+@font-face {
+    font-family: Gotham-Bold;
+    src: url(Gotham-Bold.eot);
+}
+.Gbold{
+	font-family: Gotham-Bold;
+	margin: 0px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
