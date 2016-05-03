@@ -4,6 +4,8 @@
 // 1) put the file name, and then time into the variables.
 // 		ex: 6.00 for 6AM, decimals represent minutes,
 //		so 6.30 stands for 6:30AM.  Time is in 24 hours.
+//		Be sure that the video/music file is in the same
+//		directory as this file.
 // 2) Run using Node.js
 ///////////////////////////////////
 var videoAlarm = "test.mp4";
