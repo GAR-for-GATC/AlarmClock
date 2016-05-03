@@ -30,7 +30,7 @@ var refreshId = setInterval(function() {
 	console.log(""+wakeHour+wakeMin);
 	console.log(getHourMin());
 	if(getHourMin() == ""+wakeHour+wakeMin){
-		cp.exec("test.mp4");
+		cp.exec(videoAlarm);
 		clearInterval(refreshId);
 	}		
 }, 1000);
