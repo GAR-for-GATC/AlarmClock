@@ -28,9 +28,12 @@ wakeMin = (wakeMin < 10 ? "0" : "") + wakeMin;
 
 var refreshId = setInterval(function() {
 	util.print("\u001b[2J\u001b[0;0H"); //clears screen
-	console.log(getDateTime());
-	console.log(""+wakeHour+wakeMin);
-	console.log(getHourMin());
+	console.log("\t=================================\n\t=\t\t\t\t=");
+	console.log("\t= " + getDateTime()+"\t=");
+	console.log("\t= Alarm at: " + wakeHour + ":" + wakeMin + "\t\t=\n\t=\t\t\t\t=");
+	console.log("\t=================================\n");
+	//console.log(""+wakeHour+wakeMin);
+	//console.log(getHourMin());
 	if(getHourMin() == ""+wakeHour+wakeMin){
 		cp.exec(videoAlarm);
 		clearInterval(refreshId);
