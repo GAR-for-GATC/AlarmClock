@@ -1,3 +1,9 @@
+body{
+	background: #555555;
+	margin-right: 25px;
+    margin-left: 25px;
+}
+
 @font-face {
     font-family: Gotham-Bold;
     src: url(Gotham-Bold.eot);
@@ -8,3 +14,38 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
+#cssmenu {
+	font-family: Helvetica;
+	font-size: 15px;
+}
+#cssmenu > ul {
+	width: auto;
+	list-style-type: none;
+}
+#cssmenu > ul li {
+	display: inline-block;
+}
+#cssmenu > ul li.has-sub {
+  position: relative;
+}
+#cssmenu > ul li.has-sub:hover ul {
+  display: block;
+}
+#cssmenu > ul li.has-sub ul {
+  display: none;
+  width: 250px;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background: #ffffff;
+  
+  border-top: 0 none;
+}
+
+
+
+
+
+

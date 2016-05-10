@@ -6,6 +6,28 @@
 <head>
 
 	<link rel="stylesheet" href="myData/css/styles.css">
+	
+	
+	
+	<div id='cssmenu'>
+	<ul>
+		<li class='active'><a href='#'><span>File</span></a></li>
+		<li class='has-sub'><a href='#'><span>Options</span></a>
+			<ul>
+				<li><a href='#'><span>Product 1</span></a></li>
+				<li><a href='#'><span>Product 2</span></a></li>
+				<li class='last'><a href='#'><span>Product 3</span></a></li>
+			</ul>
+		</li>
+		<li class='has-sub'><a href='#'><span>About</span></a>
+			<ul>
+				<li><a href='#'><span>Company</span></a></li>
+				<li class='last'><a href='#'><span>Contact</span></a></li>
+			</ul>
+		</li>
+		<li class='last'><a href='#'><span>Help</span></a></li>
+	</ul>
+	</div>
 
 </head>
 <body>	
@@ -13,13 +35,21 @@
 	<div id="debug"></div>
 	
 	<div> 
-		<h3 id="monthYear" >Hello World</h3>
+		<font style="font-size:19px;" id="monthYear" >Hello World</font>
+	</div>
+	<center>
+		<font style="font-size:100px;" id="hoursMins"></font>
+		<font style="font-size:50px;" id="seconds"></font>
+	</center>
+	<br>
+	<div> 
+		<font style="font-size:19px;" id="alarmSet" >Alarm: Off</font>		
+	</div>
+	<div>
+		<font style="font-size:19px;" id="alarmFile" >Alarm Video: None</font>
 	</div>
 	
-	<div id="time" ></div>
-	
-	
 	<script src="myData/js/main.js"></script>
-	
+	<script src="myData/js/jquery-1.12.3.min.js"></script>
 </body>
 </html>
