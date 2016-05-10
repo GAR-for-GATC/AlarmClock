@@ -11,43 +11,74 @@
 	
 	<div id='cssmenu'>
 	<ul>
-		<li class='active'><a href='#'><span>File</span></a></li>
-		<li class='has-sub'><a href='#'><span>Options</span></a>
+		<li class='has-sub'><a href='#'><span>File</span></a>
 			<ul>
-				<li><a href='#'><span>Product 1</span></a></li>
-				<li><a href='#'><span>Product 2</span></a></li>
-				<li class='last'><a href='#'><span>Product 3</span></a></li>
+				<li><a href='#' class='list'><span>Exit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ctrl+W</span></a></li>
+			</ul>
+		</li><!-- This comment gets rid of spacing between li elements.
+					Apparently if there's a space between elements that area
+					in an inline-block in css, a small space will appear on 
+					the left and right sides of that element.
+		--><li class='has-sub'><a href='#'><span>Options</span></a>
+			<ul>
+				<li><a href='#' class='list'><span>Toggle 12/24 Hour</span></a></li>
+				<li><a href='#' class='list'><span>Set Time</span></a></li>
+				<li><a href='#' class='list'><span>Font Options</span></a></li>
+				<li><a href='#' class='list'><span>Colour Options</span></a></li>
+			</ul>
+		</li><!-- 
+		--><li class='has-sub'><a href='#'><span>About</span></a>
+			<ul>
+				<li><a href='#' class='list'><span>About Page</span></a></li>
+				<li><a href='#' class='list'><span>Contact</span></a></li>
+			</ul>
+		</li><!-- 
+		--><li class='has-sub'><a href='#'><span>Help</span></a>
+			<ul>
+				<li><a href='#' class='list'><span>Tutorial</span></a></li>
+				<li><a href='#' class='list'><span>Reference</span></a></li>
 			</ul>
 		</li>
-		<li class='has-sub'><a href='#'><span>About</span></a>
-			<ul>
-				<li><a href='#'><span>Company</span></a></li>
-				<li class='last'><a href='#'><span>Contact</span></a></li>
-			</ul>
-		</li>
-		<li class='last'><a href='#'><span>Help</span></a></li>
 	</ul>
 	</div>
+	<div style="clear: both;"></div>
 
 </head>
-<body>	
-	<div class="Gbold">test </div>
-	<div id="debug"></div>
-	
-	<div> 
-		<font style="font-size:19px;" id="monthYear" >Hello World</font>
-	</div>
-	<center>
-		<font style="font-size:100px;" id="hoursMins"></font>
-		<font style="font-size:50px;" id="seconds"></font>
-	</center>
-	<br>
-	<div> 
-		<font style="font-size:19px;" id="alarmSet" >Alarm: Off</font>		
-	</div>
-	<div>
-		<font style="font-size:19px;" id="alarmFile" >Alarm Video: None</font>
-	</div>
+<body>
+	<div class="bodyArea">
+		
+		<div class="Gbold"></div>
+		<div id="debug"></div>
+		<br>
+		<div style="padding:6px;"></div>
+		
+		<div> 
+			<font style="font-size:19px;" id="monthYear" ></font>
+		</div>
+		
+		<center>
+			<font style="font-size:120px;" id="hoursMins"></font>
+			<font style="font-size:50px;" id="seconds"></font>
+		</center>
+		
+		
+		<div style="position: absolute; bottom: 5px;">
+			<div>
+				<button>Set</button>
+				<font style="font-size:19px;" id="alarmSet" >Alarm: Off</font>		
+			</div>
+			<div>
+				<button>Set</button>
+				<font style="font-size:19px;" id="alarmSet" >Alarm Time: None</font>		
+			</div>
+			<div>
+				<button>Set</button>
+				<font style="font-size:19px;" id="alarmFile" >Alarm Video: None</font>
+				
+			</div>		
+		</div><!--Footer -->
+		
+	</div><!--bodyArea-->
 	
 	<script src="myData/js/main.js"></script>
 	<script src="myData/js/jquery-1.12.3.min.js"></script>

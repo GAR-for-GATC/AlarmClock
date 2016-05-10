@@ -1,5 +1,5 @@
 
-document.getElementById('debug').textContent = 'cocks';
+//document.getElementById('debug').textContent = 'cocks';
 
 
 //Get the time and display on screen
@@ -24,9 +24,11 @@ wakeMin = (wakeMin < 10 ? "0" : "") + wakeMin;
 var currentTime;
 
 var refreshId = setInterval(function() {
+	/*
 	document.getElementById('debug').textContent = getDateTime() + " and " +
 													""+wakeHour+wakeMin + " and " +
 													getHourMin();
+	*/
 	currentTime = getDateTime();
 	
 	document.getElementById('hoursMins').textContent = currentTime[0] 
@@ -64,7 +66,7 @@ var colourID = setInterval(function() {
 		colourCounter = 0;
 	}
 	
-}, 200	);
+}, 200);
 
 
 //Clock Functions//////////////////

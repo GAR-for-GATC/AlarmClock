@@ -1,5 +1,12 @@
+
+
 body{
+	margin: 0px;
 	background: #555555;
+	
+}
+
+.bodyArea{
 	margin-right: 25px;
     margin-left: 25px;
 }
@@ -18,31 +25,80 @@ body{
 #cssmenu {
 	font-family: Helvetica;
 	font-size: 15px;
+	
 }
 #cssmenu > ul {
 	width: auto;
 	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	border-bottom: 1px solid #f3d3ab;
+	
 }
 #cssmenu > ul li {
-	display: inline-block;
+	display: inline-block;	
+	zoom: 1;
 }
 #cssmenu > ul li.has-sub {
   position: relative;
+  
 }
 #cssmenu > ul li.has-sub:hover ul {
   display: block;
 }
 #cssmenu > ul li.has-sub ul {
   display: none;
-  width: 250px;
+  width: 145px;
   position: absolute;
   margin: 0;
   padding: 0;
   list-style-type: none;
-  background: #ffffff;
+  background: #f3d9ab;
   
-  border-top: 0 none;
+  border: none;
 }
+
+#cssmenu > ul li.has-sub > a.active,
+#cssmenu > ul li.has-sub > a:hover {
+  background: #d80041;
+  
+}
+
+#cssmenu > ul li.has-sub > a {
+  display: block;
+  padding: 11px 12px 5px 12px;
+  text-decoration: none;
+  color: #000000;  
+}
+
+
+#cssmenu > ul li a.list{
+  display: inline-block;
+  width: 121px;
+  padding: 3px 12px 3px 12px;
+  text-decoration: none;
+  color: #343434;  
+}
+
+#cssmenu > ul li a.active,
+#cssmenu > ul li a:hover {
+  background: #d80041;
+  color: #fff;
+  text-shadow: 0px 1px 0px #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
