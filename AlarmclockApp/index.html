@@ -1,19 +1,25 @@
 
-<!--Run using "nw ." -->
+<!--Run using the command "nw ." -->
 
 <!DOCTYPE html>
-<html>
+<html onkeypress="keypressCheck(); return false;">
 <head>
-
+	
 	<link rel="stylesheet" href="myData/css/styles.css">
 	
-	
+	<!--
+	<iframe style="position:absolute;top:25%;left: 20%;
+					background:#F3D9DF;" 
+		src="test.html" name="iframe_a"></iframe>
+	-->
 	
 	<div id='cssmenu'>
 	<ul>
 		<li class='has-sub'><a href='#'><span>File</span></a>
 			<ul>
-				<li><a href='#' class='list'><span>Exit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ctrl+W</span></a></li>
+				<li><a href='#' onclick="exitProgram(); return false;" 
+						 class='list'>
+						<span>Exit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ctrl+W</span></a></li>
 			</ul>
 		</li><!-- This comment gets rid of spacing between li elements.
 					Apparently if there's a space between elements that area
@@ -21,8 +27,10 @@
 					the left and right sides of that element.
 		--><li class='has-sub'><a href='#'><span>Options</span></a>
 			<ul>
-				<li><a href='#' class='list'><span>Toggle 12/24 Hour</span></a></li>
-				<li><a href='#' class='list'><span>Set Time</span></a></li>
+				<li><a href='#' class='list' onclick="toggleTime(); return false;" 
+						><span>Toggle 12/24 Hour</span></a></li>
+				<li><a href='#' class='list'>
+					<span>Set Time</span></a></li>
 				<li><a href='#' class='list'><span>Font Options</span></a></li>
 				<li><a href='#' class='list'><span>Colour Options</span></a></li>
 			</ul>
@@ -59,21 +67,23 @@
 		<center>
 			<font style="font-size:120px;" id="hoursMins"></font>
 			<font style="font-size:50px;" id="seconds"></font>
+			<font style="font-size:30px;">&nbsp;</font>
+			<font style="font-size:60px;" id="ampm"></font>
 		</center>
 		
 		
 		<div style="position: absolute; bottom: 5px;">
 			<div>
-				<button>Set</button>
-				<font style="font-size:19px;" id="alarmSet" >Alarm: Off</font>		
+				<button id="alarmSet">Set</button>
+				<font style="font-size:19px;" id="alarmSetText">Alarm: Off</font>		
 			</div>
 			<div>
-				<button>Set</button>
-				<font style="font-size:19px;" id="alarmSet" >Alarm Time: None</font>		
+				<button id="alarmTime">Set</button>
+				<font style="font-size:19px;">Alarm Time: None</font>		
 			</div>
 			<div>
-				<button>Set</button>
-				<font style="font-size:19px;" id="alarmFile" >Alarm Video: None</font>
+				<button id="alarmFile">Set</button>
+				<font style="font-size:19px;">Alarm Video: None</font>
 				
 			</div>		
 		</div><!--Footer -->

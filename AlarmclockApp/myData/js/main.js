@@ -5,23 +5,38 @@
 //Get the time and display on screen
 var util = require('util');
 var cp = require("child_process");
+var fs = require("fs");
 
+var content = fs.readFileSync("myData/data/settings.json");
+var jsonContent = JSON.parse(content);
+//document.getElementById('debug').textContent = jsonContent.test;
 ///////////////////////////////////
 var videoAlarm = "test.png";
-var wakeUpTime = 2.46 ; 
-var isAmPm		= "pm";			//Ignored if hourTime24 is true.
-var hourTime24	= false;
+var alarmOn = (jsonContent.alarmOn === "true");
+var wakeUpTime = 0; 
+var isAmPm;			
+var hourTime24	= (jsonContent.hourTime24 === "true"); //changes string to a bool
 ///////////////////////////////////
 
-var wakeHour = Math.floor(wakeUpTime);
-wakeHour = (wakeHour < 10 ? "0" : "") + wakeHour;
-var wakeMin = (wakeUpTime + "").split(".")[1];
-if(wakeMin == null){
-	wakeMin = "0";
+var wakeHour;
+var wakeMin;
+
+if(hourTime24){
+	wakeHour = Math.floor(wakeUpTime);
+	wakeHour = (wakeHour < 10 ? "0" : "") + wakeHour;
+	wakeMin = (wakeUpTime + "").split(".")[1];
+	if(wakeMin == null){
+		wakeMin = "0";
+	}
+	wakeMin = (wakeMin < 10 ? "0" : "") + wakeMin;
 }
-wakeMin = (wakeMin < 10 ? "0" : "") + wakeMin;
+else{
+	
+}
+
 
 var currentTime;
+var hourin12;
 
 var refreshId = setInterval(function() {
 	/*
@@ -29,16 +44,39 @@ var refreshId = setInterval(function() {
 													""+wakeHour+wakeMin + " and " +
 													getHourMin();
 	*/
-	currentTime = getDateTime();
 	
-	document.getElementById('hoursMins').textContent = currentTime[0] 
-													+ ":" + currentTime[1];
-	document.getElementById('seconds').textContent = "." + currentTime[2]
-	document.getElementById('monthYear').textContent = getMonthYear();
-	if(getHourMin() == ""+wakeHour+wakeMin){
-		cp.exec(videoAlarm);
-		clearInterval(refreshId);
+	currentTime = getDateTime();
+	//use 24 hour clock
+	if(hourTime24){
+		document.getElementById('hoursMins').textContent = currentTime[0] 
+														+ ":" + currentTime[1];
+		document.getElementById('seconds').textContent = "." + currentTime[2]
+		document.getElementById('monthYear').textContent = getMonthYear();
+		if(alarmOn){
+			if(getHourMin() == ""+wakeHour+wakeMin){
+				cp.exec(videoAlarm);
+				clearInterval(refreshId);
+			}
+		}
+			
 	}
+	else{
+		hourin12 = changeToAMPM(currentTime[0]);
+		document.getElementById('hoursMins').textContent = hourin12[0] 
+														+ ":" + currentTime[1];
+		document.getElementById('seconds').textContent = "." + currentTime[2]
+		document.getElementById('monthYear').textContent = getMonthYear();
+		document.getElementById('ampm').textContent = hourin12[1];
+		if(alarmOn){
+			if(getHourMin() == ""+wakeHour+wakeMin){
+				cp.exec(videoAlarm);
+				clearInterval(refreshId);
+			}		
+		}		
+	}
+	
+	
+	
 }, 1000);
 
 /*
@@ -49,8 +87,7 @@ var refreshId = setInterval(function() {
 		
 	Speed settings:
 		200ms = slow.
-		20ms = medium
-		
+		20ms = medium		
 */
 var colourCounter = .792;
 var saturation = .279;
@@ -66,10 +103,31 @@ var colourID = setInterval(function() {
 		colourCounter = 0;
 	}
 	
+	//toggle alarm settings:
+	if(alarmOn){
+		document.getElementById('alarmSetText').textContent = "Alarm: On"
+	}
+	else{
+		document.getElementById('alarmSetText').textContent = "Alarm: Off"
+	}
+	
 }, 200);
 
 
 //Clock Functions//////////////////
+function changeToAMPM(hour24){
+	var hour12;
+	var amPm = "AM";
+	if(hour24 > 12){
+		hour12 = hour24 - 12;
+		amPm = "PM";
+	}
+	else{
+		hour12 = hour24;
+	}
+	return [hour12, amPm];	
+}
+
 function getDateTime() {
 
     var date = new Date();
@@ -161,8 +219,68 @@ function toHex(decimal){
 	hex = decimal.toString(16);
 	return hex;
 }
+//Exit Function///////////////////////////////
+//exits the program
+function exitProgram(){
+	//document.getElementById('debug').textContent = 'cocks';
+	window.open('','_parent',''); 
+	window.close();
+	return;	
+}
 
+//Runs when a key is pressed.///////////////////////////////
+function keypressCheck(){
+	$(document).keypress("w",function(e) {
+		if(e.ctrlKey){	
+			window.open('','_parent',''); 
+			window.close();
+			return;	
+		} 
+	});
+	
+}
 
+//Toggles the 12/14 hour value in the json file/////////////
+function toggleTime(){
+	var togTimeContent = fs.readFileSync("myData/data/settings.json");
+	var togTimeJson = JSON.parse(togTimeContent);
+	var currentSetting	= (togTimeJson.hourTime24 === "true");
+	//if 24hourtime is true, change to false
+	if(currentSetting){
+		togTimeJson.hourTime24 = "false";
+		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togTimeJson));
+	}
+	else{
+		togTimeJson.hourTime24 = "true";
+		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togTimeJson));
+	}
+	window.location.reload();
+	return;
+}
+
+//functions that run on button clicks//////////////////
+var alarmSet = document.getElementById('alarmSet'),
+    alarmTime = document.getElementById('alarmTime'),
+	alarmFile = document.getElementById('alarmFile');
+
+function toggleAlarmSetting() {
+    //alert('Yay!');
+	var togAlarmContent = fs.readFileSync("myData/data/settings.json");
+	var togAlarmJson = JSON.parse(togAlarmContent);
+	var currentAlarmSetting	= (togAlarmJson.alarmOn === "true");
+	if(alarmOn){
+		alarmOn = false;
+		togAlarmJson.alarmOn = "false";
+		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togAlarmJson));
+	}
+	else{
+		alarmOn = true;
+		togAlarmJson.alarmOn = "true";
+		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togAlarmJson));
+	}
+	return;	
+}
+alarmSet.onclick = toggleAlarmSetting;
 
 
 
