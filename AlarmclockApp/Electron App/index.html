@@ -1,0 +1,97 @@
+
+<!--Run using the command "nw ." -->
+
+<!DOCTYPE html>
+<html onkeypress="options.keypressCheck(); return false;">
+<head>
+	
+	<link rel="stylesheet" href="myData/css/styles.css">
+	
+	<!--
+	<iframe style="position:absolute;top:25%;left: 20%;
+					background:#F3D9DF;" 
+		src="test.html" name="iframe_a"></iframe>
+	-->
+	
+	<div id='cssmenu'>
+	<ul>
+		<li class='has-sub'><a href='#'><span>File</span></a>
+			<ul>
+				<li><a href='#' onclick="options.exitProgram(); return false;" 
+						 class='list'>
+						<span>Exit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ctrl+W</span></a></li>
+			</ul>
+		</li><!-- This comment gets rid of spacing between li elements.
+					Apparently if there's a space between elements that area
+					in an inline-block in css, a small space will appear on 
+					the left and right sides of that element.
+		--><li class='has-sub'><a href='#'><span>Options</span></a>
+			<ul>
+				<li><a href='#' class='list' onclick="options.toggleTime(); return false;" 
+						><span>Toggle 12/24 Hour</span></a></li>
+				<li><a href='#' class='list' onClick="options.openSetTime(); return false;">
+					<span>Set Time</span></a></li>
+				<li><a href='#' class='list' onClick="options.openFontOptions(); return false;"><span>Font Options</span></a></li>
+				<li><a href='#' class='list' onClick="options.openColorOptions(); return false;"><span>Colour Options</span></a></li>
+			</ul>
+		</li><!-- 
+		--><li class='has-sub'><a href='#'><span>About</span></a>
+			<ul>
+				<li><a href='#' class='list'><span>About Page</span></a></li>
+				<li><a href='#' class='list'><span>Contact</span></a></li>
+			</ul>
+		</li><!-- 
+		--><li class='has-sub'><a href='#'><span>Help</span></a>
+			<ul>
+				<li><a href='#' class='list'><span>Tutorial</span></a></li>
+				<li><a href='#' class='list'><span>Reference</span></a></li>
+			</ul>
+		</li>
+	</ul>
+	</div>
+	<div style="clear: both;"></div>
+
+</head>
+<body>
+	<div class="bodyArea">
+		
+		<div class="Gbold"></div>
+		<div id="debug"></div>
+		<br>
+		<div style="padding:6px;"></div>
+		
+		<div> 
+			<font style="font-size:19px;" id="monthYear" ></font>
+		</div>
+		
+		<center>
+			<font style="font-size:120px;" id="hoursMins"></font>
+			<font style="font-size:50px;" id="seconds"></font>
+			<font style="font-size:30px;">&nbsp;</font>
+			<font style="font-size:60px;" id="ampm"></font>
+		</center>
+		
+		
+		<div style="position: absolute; bottom: 5px;">
+			<div>
+				<button id="alarmSet">Set</button>
+				<font style="font-size:19px;" id="alarmSetText">Alarm: Off</font>		
+			</div>
+			<div>
+				<button id="alarmTime" onClick="button.openSetAlarm();">Set</button>
+				<font style="font-size:19px;">Alarm Time: None</font>		
+			</div>
+			<div>
+				<button id="alarmFile">Set</button>
+				<font style="font-size:19px;">Alarm Video: None</font>
+				
+			</div>		
+		</div><!--Footer -->
+		
+	</div><!--bodyArea-->
+	
+	<script src="myData/js/mainCode.js"></script>
+	<script>window.$ = window.jQuery = require('./myData/js/jquery-1.12.3.min.js');</script>
+	<!--<script src="myData/js/jquery-1.12.3.min.js"></script>-->
+</body>
+</html>
