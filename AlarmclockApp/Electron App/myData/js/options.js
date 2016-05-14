@@ -45,22 +45,22 @@ exports.toggleTime = function (){
 //Opens the Set Time window
 exports.openSetTime = function(){
 	var myWindow = window.open('./Popups/setTime/setTime.html', 'Set Time', 'height=250, width=350'); 
-	myWindow.resizeTo(250, 250); 
-	myWindow.focus();
 	return;
 }
 //Opens the Font Options Window
 exports.openFontOptions = function(){
-	var myWindow = window.open('./Popups/fontOptions/fontOptions.html', 'Font Options', 'height=250, width=350'); 
-	myWindow.resizeTo(250, 250); 
-	myWindow.focus();
+	var myWindow = window.open('./Popups/fontOptions/fontOptions.html', 'Font Options', 'height=330, width=460'); 
 	return;
 }
 //Opens the set colour options window
 exports.openColorOptions = function(){
-	var myWindow = window.open('./Popups/colorOptions/colorOptions.html', 'Set Colors', 'height=400, width=460'); 
-	myWindow.resizeTo(250, 250); 
-	myWindow.focus();
+	var myWindow = window.open('./Popups/colorOptions/colorOptions.html', 'Set Colours', 'height=370, width=460'); 
+	return;
+}
+
+//Opens the set colour options window
+exports.openColorTransitions = function(){
+	var myWindow = window.open('./Popups/colorTransitions/colorTransitions.html', 'Set Colours', 'height=360, width=480'); 
 	return;
 }
 
