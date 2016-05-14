@@ -33,6 +33,7 @@
 					<span>Set Time</span></a></li>
 				<li><a href='#' class='list' onClick="options.openFontOptions(); return false;"><span>Font Options</span></a></li>
 				<li><a href='#' class='list' onClick="options.openColorOptions(); return false;"><span>Colour Options</span></a></li>
+				<li><a href='#' class='list' onClick="options.openColorOptions(); return false;"><span>Colour Transitions</span></a></li>
 			</ul>
 		</li><!-- 
 		--><li class='has-sub'><a href='#'><span>About</span></a>
@@ -74,8 +75,8 @@
 		
 		<div style="position: absolute; bottom: 5px;">
 			<div>
-				<button id="alarmSet">Set</button>
-				<font style="font-size:19px;" id="alarmSetText">Alarm: Off</font>		
+				<button id="alarmSet" onClick="button.toggleAlarmSetting();">Set</button>
+				<font style="font-size:19px;" id="alarmSetText" >Alarm: Off</font>		
 			</div>
 			<div>
 				<button id="alarmTime" onClick="button.openSetAlarm();">Set</button>

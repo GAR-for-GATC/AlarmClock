@@ -113,13 +113,14 @@ var colourID = setInterval(function() {
 	if(colourCounter > 1){
 		colourCounter = 0;
 	}
-	jsonContent.currentColor = colorCombine;
-	fs.writeFileSync("myData/data/settings.json", JSON.stringify(jsonContent));
+	//jsonContent.currentColor = colorCombine;
+	//fs.writeFileSync("myData/data/settings.json", JSON.stringify(jsonContent));
 	
 }, 200);
 
 //	This loop updates text.
 //45 because anything bellow 50 seems instantaneous
+/*
 var updateButtons = setInterval(function() {
 	var content = fs.readFileSync("myData/data/settings.json");
 	var jsonContent = JSON.parse(content);
@@ -133,8 +134,8 @@ var updateButtons = setInterval(function() {
 		document.getElementById('alarmSetText').textContent = "Alarm: Off"
 	}
 }, 45);
-
-alarmSet.onclick = button.toggleAlarmSetting;
+*/
+//alarmSet.onclick = button.toggleAlarmSetting;
 
 
 

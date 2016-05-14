@@ -58,7 +58,7 @@ exports.openFontOptions = function(){
 }
 //Opens the set colour options window
 exports.openColorOptions = function(){
-	var myWindow = window.open('./Popups/colorOptions/colorOptions.html', 'Set Colors', 'height=250, width=350'); 
+	var myWindow = window.open('./Popups/colorOptions/colorOptions.html', 'Set Colors', 'height=400, width=460'); 
 	myWindow.resizeTo(250, 250); 
 	myWindow.focus();
 	return;
