@@ -17,15 +17,14 @@ var jsonContent = JSON.parse(content);
 
 //document.getElementById('debug').textContent = jsonContent.test;
 ///////////////////////////////////
-var videoAlarm = "test.png";
-var alarmOn = (jsonContent.alarmOn === "true");
-var wakeUpTime = 0; 		
-var hourTime24	= (jsonContent.hourTime24 === "true"); //changes string to a bool
+//var videoAlarm = "test.png";
+//var alarmOn = (jsonContent.alarmOn === "true");
+//var wakeUpTime = 0; 		
+//var hourTime24	= (jsonContent.hourTime24 === "true"); //changes string to a bool
 ///////////////////////////////////
 
-var wakeHour;
-var wakeMin;
 
+/*
 if(hourTime24){
 	wakeHour = Math.floor(wakeUpTime);
 	wakeHour = (wakeHour < 10 ? "0" : "") + wakeHour;
@@ -38,10 +37,17 @@ if(hourTime24){
 else{
 	
 }
+*/
 
+var videoAlarm = "test.png";
+var wakeUpTime;
+var alarmOn;
 
 var currentTime;
 var hourin12;
+var hourTime24;
+var wakeHour;
+var wakeMin;
 
 var refreshId = setInterval(function() {
 	/*
@@ -50,14 +56,16 @@ var refreshId = setInterval(function() {
 													getHourMin();
 	*/
 	
-	//Check if time has been changed from 12 to 24 hours or
-	//	vice versa.
+	//Update variables.
 	var content = fs.readFileSync("myData/data/settings.json");
 	var jsonContent = JSON.parse(content);
 	hourTime24	= (jsonContent.hourTime24 === "true");
 	alarmOn = (jsonContent.alarmOn === "true");
+	wakeUpTime = jsonContent.alarmOn;
 	
+	//Get time
 	currentTime = clock.getDateTime();
+	
 	//using 24 hour clock
 	if(hourTime24){
 		document.getElementById('hoursMins').textContent = currentTime[0] + ":" + currentTime[1];
