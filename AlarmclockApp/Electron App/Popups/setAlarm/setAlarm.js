@@ -24,59 +24,33 @@ function check1(key){
 }
 
 //if the form is full, jump to next form, else go back to the first form
-var counter2 = 0;
-function check2(){
-	
-	var numbers = document.hourmin.min12.value.length + 1;
-	//console.log(numbers + " " + numberLength);
-	//console.log("numbers: "+ numbers);
-	var cursorLocation = document.getElementsByName("hour12");
-	console.log(cursorLocation[0].selectionStart);
+function check2(key){
+	var cursorLocation = document.getElementsByName("min12")[0].selectionStart;
+	console.log(cursorLocation);
 	
 	var event = window.event ? window.event : key;
-	if(event.keyCode == 37 ){//left arrow key
+	//if you use the left arrow key and the cursor is 
+	//	on the left side of the text input
+	if(event.keyCode == 37 && cursorLocation == 0){
+		document.hourmin.hour12.focus();		
+		return;
+	}
+	if(event.keyCode == 8 && cursorLocation == 0){//if backspace
 		document.hourmin.hour12.focus();
-		counter2 = 0;
-		return;
+		return;					
 	}
-	if (numbers <= 3 && numbers != 1){		
-		document.hourmin.min12.focus();
-	}
-	//if empty and the backspace key is entered, jump focus to the previous entry
-	else if(numbers == 1){
-		
-		if(event.keyCode == 8){//if backspace
-			if(counter2 === 0){//used for the first backspace
-				counter2 = counter2 + 1;				
-			}
-			//this is here if the user clicks on this when there's no input.  
-			//	lets the user only use 1 backspace instead of 2 to navigate back
-			else{//used for second backspace
-				document.hourmin.hour12.focus();
-				counter2 = 0;
-				return;
-			}			
-		}
-		//if cursor is on the left side, and you use the left arrow, go to
-		//	previous box.
-		
-		//console.log("Purple" + event.keyCode);
-	}
-	else{
-		//deletes the last number entered
-		var strng=document.getElementsByName("min12")[0].value;
-		document.getElementsByName("min12")[0].value=strng.substring(0,strng.length-1);
-		
-		//move last entered number to the next form entry box
-		var event = window.event ? window.event : key;
-		document.hourmin.sec12.focus();
-		document.getElementsByName('sec12')[0].value = String.fromCharCode(event.keyCode);
-		
-		//clean up variables on focus out event
-		counter2 = 0;	
-		return;
-		//console.log(String.fromCharCode(event.keyCode));
-		//console.log(key);
+	//if cursor is at the second location, but backspace, and left arent pressed
+	//	go right if you enter a number, or a right arrow key.  Array contains ascii for
+	//	numbers and right arrow key
+	var goRight = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 39];
+	if(cursorLocation == 2 && (goRight.indexOf(event.keyCode) >= 0)){
+		var strng=document.getElementsByName("sec12")[0];
+		//Deletes the first element in the next form input
+		document.getElementsByName("sec12")[0].value = strng.value.substring(1,strng.value.length);
+		//sets cursor at beginning
+		strng.setSelectionRange(0, 0);		
+		strng.focus();		
+		return;		
 	}
 	
 }	
@@ -155,7 +129,7 @@ function check5(){
 	else{
 		//deletes the last number entered
 		var strng=document.getElementsByName("min24")[0].value;
-		document.getElementsByName("min24")[0].value=strng.substring(0,strng.length-1)
+		document.getElementsByName("min24")[0].value=strng.substring(0,strng.length-1);
 		
 		//move last entered number to the next form entry box
 		var event = window.event ? window.event : key;

@@ -1,5 +1,5 @@
 <!--Used to find carat position -->
-
+<!--
 <!doctype html>
 
 <html>
@@ -11,7 +11,7 @@
                 var input = document.getElementsByTagName ("input");
 
                 input[0].addEventListener ("keyup", function () {
-                    alert ("Caret position: " + this.selectionStart);
+                    alert ("Caret position: " + this.selectionEnd);
 
                     // You can also set the caret: this.selectionStart = 2;
                 }, false);
@@ -26,4 +26,24 @@
     <body>
         <input type = "text" />
     </body>
+</html>
+-->
+<html>
+<head>
+    <title>so</title>
+</head>
+<body>
+    <input value="stack" />
+    <input value="overflow" />
+    <script>
+        var inp = document.getElementsByTagName('INPUT')[1];
+        if (inp.createTextRange) {
+            var part = inp.createTextRange();
+            part.move("character", 0);
+            part.select();
+        }else if (inp.setSelectionRange){
+            inp.setSelectionRange(0, 0);}
+        inp.focus();
+    </script>
+</body>
 </html>
