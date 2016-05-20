@@ -9,29 +9,31 @@
 	<h3>Set Alarm</h3>
 
 	<form name="hourmin">12 Hour Time (hr:min:sec)&nbsp;<br>
-		<input maxlength="3" size="2" type="text" name="hour12" onKeyDown="check1();"/>:
+		<input maxlength="2" size="2" type="text" name="hour12" onKeyDown="check1();"/>:
 		<input maxlength="2" size="2" type="text" name="min12" 	onKeyDown="check2();"/>:
 		<input maxlength="2" size="2" type="text" name="sec12" 	onKeyDown="check3();"/>
 		
-		<select name="dropdown">
+		<select name="dropdown" onKeyDown="checkDrop();">
 			<option value="AM" selected>AM</option>
 			<option value="PM">PM</option>
 		</select>
 		&nbsp;&nbsp;
-		<button onclick="clear12();">Clear</button>
+		<button type="button" onclick="clear12();">Clear</button>
 	<br><br>
 	24 Hour time (hr:min:sec)&nbsp;<br>
-		<input maxlength="3" size="2" type="text" name="hour24" onKeyUp="check4();"/>:
-		<input maxlength="3" size="2" type="text" name="min24" 	onKeyUp="check5();"/>:
-		<input maxlength="2" size="2" type="text" name="sec24" 	onKeyUp="check6();"/>
+		<input maxlength="2" size="2" type="text" name="hour24" onKeyDown="check4();"/>:
+		<input maxlength="2" size="2" type="text" name="min24" 	onKeyDown="check5();"/>:
+		<input maxlength="2" size="2" type="text" name="sec24" 	onKeyDown="check6();"/>
 		&nbsp;&nbsp;
-		<button onclick="clear24();" >Clear</button>
+		<button type="button" onclick="clear24();" >Clear</button>
 	</form>
 	<br><br>
 	<div>	
-		<button style="margin: 5px 50px;" onclick="submitValues();" value="submit">Submit</button>	
-		<button style="margin: 5px 50px;" onclick="closeWindow();" value="submit">Cancel</button>
+		<button style="margin: 5px 50px;" onclick="submitValues();" value="submit" name="submitButton">Submit</button>	
+		<button style="margin: 5px 50px;" onclick="closeWindow();" value="submit" name="cancelButton">Cancel</button>
 	</div>
 </center>
+	
+	
 </body>
 </html>
