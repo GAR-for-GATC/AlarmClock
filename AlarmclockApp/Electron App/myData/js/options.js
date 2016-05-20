@@ -5,7 +5,7 @@ var exports = module.exports = {};
 //exits the program
 exports.exitProgram = function(){
 	//document.getElementById('debug').textContent = 'cocks';
-	window.open('','_parent',''); 
+	//window.open('','_parent',''); 
 	window.close();
 	return;	
 }

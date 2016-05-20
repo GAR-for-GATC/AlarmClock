@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html onKeyDown="globalfocus();">
 <head>
 	<script src="setAlarm.js"></script>
 </head>
@@ -9,28 +9,30 @@
 	<h3>Set Alarm</h3>
 
 	<form name="hourmin">12 Hour Time (hr:min:sec)&nbsp;<br>
+		<input type="checkbox" name="checkBox12" onKeyDown="checkCheckBox12();"/>
 		<input maxlength="2" size="2" type="text" name="hour12" onKeyDown="check1();"/>:
 		<input maxlength="2" size="2" type="text" name="min12" 	onKeyDown="check2();"/>:
 		<input maxlength="2" size="2" type="text" name="sec12" 	onKeyDown="check3();"/>
 		
 		<select name="dropdown" onKeyDown="checkDrop();">
-			<option value="AM" selected>AM</option>
-			<option value="PM">PM</option>
+			<option value="AM" name="AM">AM</option>
+			<option value="PM" name="PM">PM</option>
 		</select>
 		&nbsp;&nbsp;
-		<button type="button" onclick="clear12();">Clear</button>
+		<button type="button" name="clear12" onclick="clear12();" onKeyDown="checkClear12();">Clear</button>
 	<br><br>
 	24 Hour time (hr:min:sec)&nbsp;<br>
+		<input type="checkbox" name="checkBox24" onKeyDown="checkCheckBox24();"/>
 		<input maxlength="2" size="2" type="text" name="hour24" onKeyDown="check4();"/>:
 		<input maxlength="2" size="2" type="text" name="min24" 	onKeyDown="check5();"/>:
 		<input maxlength="2" size="2" type="text" name="sec24" 	onKeyDown="check6();"/>
 		&nbsp;&nbsp;
-		<button type="button" onclick="clear24();" >Clear</button>
+		<button type="button" name="clear24" onclick="clear24();" onKeyDown="checkClear24();">Clear</button>
 	</form>
 	<br><br>
 	<div>	
-		<button style="margin: 5px 50px;" onclick="submitValues();" value="submit" name="submitButton">Submit</button>	
-		<button style="margin: 5px 50px;" onclick="closeWindow();" value="submit" name="cancelButton">Cancel</button>
+		<button style="margin: 5px 50px;" onclick="submitValues();" value="submit" name="submitButton" onKeyDown="checkSubmit();">Submit</button>	
+		<button style="margin: 5px 50px;" onclick="closeWindow();" value="submit" name="cancelButton" onKeyDown="checkCancel();">Cancel</button>
 	</div>
 </center>
 	
