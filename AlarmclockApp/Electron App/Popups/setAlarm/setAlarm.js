@@ -633,17 +633,34 @@ function submitValues(){
 		var values = 	[document.getElementsByName("hour12")[0].value,
 						document.getElementsByName("min12")[0].value,
 						document.getElementsByName("sec12")[0].value];
-						
+		
+		//if the user didnt enter anything, change values to 0
 		for(i=0; i<values.length; i++){
 			if(values[i] == null){
 				values[i] = 0;
 			}
 		}	
 		
-		//if PM is selected, change to PM
+		// if PM is selected, change to PM
+		var e = document.getElementsByName("dropdown")[0];
+		//var amOrPm = e.options[e.selectedIndex].value;
+		var amOrPm = e.options[e.selectedIndex].text;
+		if(amOrPm == "PM"){
+			values[0] = parseInt(values[0]) + 12;
+		}	
 		
 		
-		var ourput = values[0] + ":" + values[1] + ":" + values[2];		
+		var output = values[0] + ":" + values[1] + ":" + values[2];	
+		console.log(output, + " " + amOrPm );
+		return;
+	}
+	else{
+		var values = 	[document.getElementsByName("hour12")[0].value,
+						document.getElementsByName("min12")[0].value,
+						document.getElementsByName("sec12")[0].value];
+		var output = values[0] + ":" + values[1] + ":" + values[2];	
+		console.log(output );
+		return;
 	}
 	
 }
