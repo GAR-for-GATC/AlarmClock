@@ -14,7 +14,7 @@ exports.exitProgram = function(){
 exports.keypressCheck = function (){
 	$(document).keypress("w",function(e) {
 		if(e.ctrlKey){	
-			window.open('','_parent',''); 
+			//window.open('','_parent',''); 
 			window.close();
 			return;	
 		} 

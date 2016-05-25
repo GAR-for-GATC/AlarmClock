@@ -9,7 +9,7 @@
 	<h3>Set Alarm</h3>
 
 	<form name="hourmin">12 Hour Time (hr:min:sec)&nbsp;<br>
-		<input type="checkbox" name="checkBox12" onKeyDown="checkCheckBox12();"/>
+		<input type="checkbox" name="checkBox12" onclick="toggle12();" onKeyDown="checkCheckBox12();"/>
 		<input maxlength="2" size="2" type="text" name="hour12" onKeyDown="check1();"/>:
 		<input maxlength="2" size="2" type="text" name="min12" 	onKeyDown="check2();"/>:
 		<input maxlength="2" size="2" type="text" name="sec12" 	onKeyDown="check3();"/>
@@ -22,7 +22,7 @@
 		<button type="button" name="clear12" onclick="clear12();" onKeyDown="checkClear12();">Clear</button>
 	<br><br>
 	24 Hour time (hr:min:sec)&nbsp;<br>
-		<input type="checkbox" name="checkBox24" onKeyDown="checkCheckBox24();"/>
+		<input type="checkbox" name="checkBox24" onclick="toggle24();" onKeyDown="checkCheckBox24();"/>
 		<input maxlength="2" size="2" type="text" name="hour24" onKeyDown="check4();"/>:
 		<input maxlength="2" size="2" type="text" name="min24" 	onKeyDown="check5();"/>:
 		<input maxlength="2" size="2" type="text" name="sec24" 	onKeyDown="check6();"/>

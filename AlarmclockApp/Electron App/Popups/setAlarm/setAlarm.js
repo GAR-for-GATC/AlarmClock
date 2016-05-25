@@ -1,7 +1,8 @@
+ var fs = require("fs");
  
  window.onload = function() {
 	//fill in form data
-	var fs = require("fs");
+	
 	//var clock = require('./myData/js/time.js');
 	var content = fs.readFileSync("myData/data/settings.json");
 	var jsonContent = JSON.parse(content);
@@ -628,6 +629,8 @@ function checkSubmit(){
 function submitValues(){
 	//package data
 	var check12 = document.getElementsByName('checkBox12')[0];
+	var togAlarmContent = fs.readFileSync("myData/data/settings.json");
+	var togAlarmJson = JSON.parse(togAlarmContent);
 	
 	if(check12.checked){
 		var values = 	[document.getElementsByName("hour12")[0].value,
@@ -639,7 +642,21 @@ function submitValues(){
 			if(values[i] == null){
 				values[i] = 0;
 			}
+		}
+		//validate form
+		if(values[0] > 12){
+			//change alert to its own stand alone html box
+			alert("Please enter a number between 1 and 12 hours.");
+			return;
+		}
+		if(values[1] > 60){
+			alert("Please enter a number between 0 and 60 mins.");
+			return;
 		}	
+		if(values[2] > 60){
+			alert("Please enter a number between 0 and 60 seconds.");
+			return;
+		}
 		
 		// if PM is selected, change to PM
 		var e = document.getElementsByName("dropdown")[0];
@@ -652,14 +669,35 @@ function submitValues(){
 		
 		var output = values[0] + ":" + values[1] + ":" + values[2];	
 		console.log(output, + " " + amOrPm );
+		togAlarmJson.wakeUpTime = output;
+		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togAlarmJson));
+		window.close();
 		return;
 	}
 	else{
-		var values = 	[document.getElementsByName("hour12")[0].value,
-						document.getElementsByName("min12")[0].value,
-						document.getElementsByName("sec12")[0].value];
+		var values = 	[document.getElementsByName("hour24")[0].value,
+						document.getElementsByName("min24")[0].value,
+						document.getElementsByName("sec24")[0].value];
+						
+		//validate form
+		if(values[0] > 24){
+			//change alert to its own stand alone html box
+			alert("Please enter a number between 1 and 24 hours.");
+			return;
+		}
+		if(values[1] > 60){
+			alert("Please enter a number between 0 and 60 mins.");
+			return;
+		}	
+		if(values[2] > 60){
+			alert("Please enter a number between 0 and 60 seconds.");
+			return;
+		}
 		var output = values[0] + ":" + values[1] + ":" + values[2];	
 		console.log(output );
+		togAlarmJson.wakeUpTime = output;
+		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togAlarmJson));
+		window.close();
 		return;
 	}
 	
@@ -729,12 +767,16 @@ function checkCheckBox12(){
 		var check12 = document.getElementsByName('checkBox12')[0];
 		var check24 = document.getElementsByName('checkBox24')[0];
 		if(check12.checked == true){
-			check12.removeAttribute("checked", "checked");
-			check24.setAttribute("checked", "checked");
+			//check12.removeAttribute("checked", "checked");
+			//check24.setAttribute("checked", "checked");
+			check24.checked = true; 
+			check12.checked = false;
 		}
 		else{
-			check12.setAttribute("checked", "checked");
-			check24.removeAttribute("checked", "checked");
+			//check12.setAttribute("checked", "checked");
+			//check24.removeAttribute("checked", "checked");
+			check24.checked = false; 
+			check12.checked = true;
 		}
 		
 	}
@@ -775,17 +817,62 @@ function checkCheckBox24(){
 		var check12 = document.getElementsByName('checkBox12')[0];
 		var check24 = document.getElementsByName('checkBox24')[0];
 		if(check24.checked == true){
-			check24.removeAttribute("checked", "checked");
-			check12.setAttribute("checked", "checked");
+			//check24.removeAttribute("checked", "checked");
+			//check12.setAttribute("checked", "checked");
+			check24.checked = false; 
+			check12.checked = true; 
 		}
 		else{
-			check24.setAttribute("checked", "checked");
-			check12.removeAttribute("checked", "checked");
+			//check24.setAttribute("checked", "checked");
+			//check12.removeAttribute("checked", "checked");
+			check24.checked = true; 
+			check12.checked = false;
 		}
+		return;
 		
 	}
 }
 
+//when clicked, toggle the other checkbox.
+function toggle24(){
+	setTimeout(function() {
+		var check12 = document.getElementsByName('checkBox12')[0];
+		var check24 = document.getElementsByName('checkBox24')[0];
+		if(check24.checked == true){
+			//check12.removeAttribute("checked", "checked");
+			check12.checked = false; 
+			//check24.setAttribute("checked", "checked");
+			console.log("cocks");
+		}
+		else{
+			//check12.setAttribute("checked", "checked");
+			check12.checked = true
+			//check24.removeAttribute("checked", "checked");
+			console.log("boobs");
+		}
+		return;
+	}, 20);
+	
+}
 
+function toggle12(){
+	setTimeout(function() {
+		var check12 = document.getElementsByName('checkBox12')[0];
+		var check24 = document.getElementsByName('checkBox24')[0];
+		if(check12.checked == true){
+			//check12.removeAttribute("checked", "checked");
+			check24.checked = false; 
+			//check24.setAttribute("checked", "checked");
+			console.log("cocks");
+		}
+		else{
+			//check12.setAttribute("checked", "checked");
+			check24.checked = true
+			//check24.removeAttribute("checked", "checked");
+			console.log("boobs");
+		}
+		return;
+	}, 20);
+}
 
 

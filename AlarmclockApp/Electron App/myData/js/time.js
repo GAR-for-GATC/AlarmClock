@@ -58,7 +58,7 @@ exports.getMonthYear = function(){
 	return  monthNames[month-1] + " " + daySuffixes[day-1] + ",   " + year;
 }
 
-exports.getHourMin = function(){
+exports.getHourMinSec = function(){
 	var date = new Date();
 	
 	var hour = date.getHours();
@@ -67,5 +67,8 @@ exports.getHourMin = function(){
     var min  = date.getMinutes();
     min = (min < 10 ? "0" : "") + min;
 	
-	return "" + hour + min;
+	var sec  = date.getSeconds();
+    sec = (sec < 10 ? "0" : "") + sec;
+	
+	return "" + hour + min + sec;
 }

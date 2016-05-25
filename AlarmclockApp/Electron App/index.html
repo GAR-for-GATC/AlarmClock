@@ -1,5 +1,5 @@
 
-<!--Run using the command "nw ." -->
+<!--Run using the command "npm start" -->
 
 <!DOCTYPE html>
 <html onkeypress="options.keypressCheck(); return false;">
@@ -80,13 +80,28 @@
 			</div>
 			<div>
 				<button id="alarmTime" onClick="button.openSetAlarm();">Set</button>
-				<font style="font-size:19px;">Alarm Time: None</font>		
+				<font style="font-size:19px;" id="alarmTimeText">Alarm Time: None</font>		
 			</div>
-			<div>
-				<button id="alarmFile">Set</button>
-				<font style="font-size:19px;">Alarm Video: None</font>
-				
-			</div>		
+			
+			
+			<input id="videoInput" onchange="localFileVideoPlayer2();" 
+					type="file" accept="video/*"/>
+			<div id="video-container">				
+				<video id="video" width="200"></video>
+				<div id="video-controls">
+					<button type="button" id="play-pause" class="play">Play</button>
+					<button type="button" id="repeat" class="repeat">NoRepeat</button>
+					<input type="range" id="seek-bar" value="0">
+					<p id="currentTime"></p>
+					<p>/</p>
+					<p id="totalTime"></p>
+					<button type="button" id="mute">Mute</button>
+					<input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1">
+					<p  id="volume-number"></p>
+				</div><!--video-controls-->
+			</div><!--video-container-->	
+			
+			
 		</div><!--Footer -->
 		
 	</div><!--bodyArea-->

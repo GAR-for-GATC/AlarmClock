@@ -1,4 +1,119 @@
+window.onload = function() {
+	var video = document.getElementById("video");
+	var playButton = document.getElementById("play-pause");
+	var muteButton = document.getElementById("mute");
+	var seekBar = document.getElementById("seek-bar");
+	var volumeBar = document.getElementById("volume-bar");
+	var volumenumber = document.getElementById('volume-number');
+	var repeatButton = document.getElementById('repeat');
+	
+	//var videoCurrentTime = document.getElementById("video").currentTime;
+	var showTime = document.getElementById("currentTime");
+	
+	
+	playButton.addEventListener("click", function() {
+		if (video.paused == true) {
+			// Play the video
+			video.play();
 
+			// Update the button text to 'Pause'
+			playButton.innerHTML = "Pause";
+		} else {
+			// Pause the video
+			video.pause();
+
+			// Update the button text to 'Play'
+			playButton.innerHTML = "Play";
+		}
+	});
+	
+	muteButton.addEventListener("click", function() {
+		if (video.muted == false) {
+			// Mute the video
+			video.muted = true;
+
+			// Update the button text
+			muteButton.innerHTML = "Unmute";
+		} else {
+			// Unmute the video
+			video.muted = false;
+
+			// Update the button text
+			muteButton.innerHTML = "Mute";
+		}
+	});
+	
+	repeatButton.addEventListener("click", function() {
+		if (video.loop == false) {
+			// Mute the video
+			video.loop = true;
+
+			// Update the button text
+			repeatButton.innerHTML = "Repeat";
+		} else {
+			// Unmute the video
+			video.loop = false;
+
+			// Update the button text
+			repeatButton.innerHTML = "NoRepeat";
+		}
+	});
+	// Event listener for the seek bar
+	seekBar.addEventListener("change", function() {
+		// Calculate the new time
+		var time = video.duration * (seekBar.value / 100);
+
+		// Update the video time
+		video.currentTime = time;
+		
+	});
+	
+	
+	
+	// Update the seek bar as the video plays
+	video.addEventListener("timeupdate", function() {
+		// Calculate the slider value
+		//var value = (100 / video.duration) * video.currentTime;
+		var value = (100 / Math.ceil(video.duration)) * Math.ceil(video.currentTime);
+		// Update the slider value
+		seekBar.value = value;
+		//update shown time
+		showTime.innerHTML = Math.ceil(video.currentTime);
+		//console.log(value);
+		totalTime.innerHTML = Math.ceil(video.duration);
+	});
+	
+	// Pause the video when the seek handle is being dragged
+	seekBar.addEventListener("mousedown", function() {
+		video.pause();
+	});
+	// Play the video when the seek handle is dropped
+	seekBar.addEventListener("mouseup", function() {
+		video.play();
+	});
+	// Event listener for the volume bar
+	volumeBar.addEventListener("change", function() {
+		// Update the video volume
+		video.volume = volumeBar.value;
+		volumenumber.innerHTML = (volumeBar.value * 100) + "%";
+		
+	});
+}
+
+
+function localFileVideoPlayer2(){
+	
+	
+	//Load and play video
+	var URL = window.URL;
+	var inputNode = document.getElementById('videoInput');
+	var file = inputNode.files[0];
+	var fileURL = URL.createObjectURL(file);
+	var videoNode = document.getElementById('video');
+	//videoNode.width=160;
+	 
+    videoNode.src = fileURL;
+}
 //document.getElementById('debug').textContent = 'cocks';
 
 
@@ -13,6 +128,14 @@ var button = require('./myData/js/button.js');
 
 var content = fs.readFileSync("myData/data/settings.json");
 var jsonContent = JSON.parse(content);
+//init alarm time
+var initAlarm = (jsonContent.alarmOn === "true");
+if(initAlarm){
+	document.getElementById('alarmSetText').textContent = "Alarm: On";
+}
+else{
+	document.getElementById('alarmSetText').textContent = "Alarm: Off";
+}
 
 
 //document.getElementById('debug').textContent = jsonContent.test;
@@ -39,6 +162,7 @@ else{
 }
 */
 
+	
 var videoAlarm = "test.png";
 var wakeUpTime;
 var alarmOn;
@@ -61,10 +185,11 @@ var refreshId = setInterval(function() {
 	var jsonContent = JSON.parse(content);
 	hourTime24	= (jsonContent.hourTime24 === "true");
 	alarmOn = (jsonContent.alarmOn === "true");
-	wakeUpTime = jsonContent.alarmOn;
+	wakeUpTime = jsonContent.wakeUpTime;
 	
 	//Get time
 	currentTime = clock.getDateTime();
+	
 	
 	//using 24 hour clock
 	if(hourTime24){
@@ -72,10 +197,26 @@ var refreshId = setInterval(function() {
 		document.getElementById('seconds').textContent = "." + currentTime[2]
 		document.getElementById('monthYear').textContent = clock.getMonthYear();
 		document.getElementById('ampm').textContent = "";
+		
+		
 		if(alarmOn){
-			if(clock.getHourMin() == ""+wakeHour+wakeMin){
-				cp.exec(videoAlarm);
-				clearInterval(refreshId);
+			//update alarm time
+			document.getElementById('alarmTimeText').textContent = "Alarm Time: " + wakeUpTime;
+			
+			//check for wakeup
+			var splitThingy = wakeUpTime.split(":");
+			var blue = "" +splitThingy[0] + splitThingy[1] + splitThingy[2];
+			//console.log(blue + " " + clock.getHourMinSec());
+			if(clock.getHourMinSec() == blue){
+				//cp.exec(videoAlarm);
+				//clearInterval(refreshId);
+				if (video.paused == true) {
+					// Play the video
+					video.play();
+
+					// Update the button text to 'Pause'
+					playButton.innerHTML = "Pause";
+				}
 			}
 		}
 			
@@ -88,9 +229,28 @@ var refreshId = setInterval(function() {
 		document.getElementById('monthYear').textContent = clock.getMonthYear();
 		document.getElementById('ampm').textContent = hourin12[1];
 		if(alarmOn){
-			if(clock.getHourMin() == ""+wakeHour+wakeMin){
-				cp.exec(videoAlarm);
-				clearInterval(refreshId);
+			//update alarm time
+			var splitString = wakeUpTime.split(":");
+			splitString[0] = clock.changeToAMPM(splitString[0]);//change 24 to 12 hour time
+			document.getElementById('alarmTimeText').textContent = "Alarm Time: " + splitString[0][0] +
+																	":" + splitString[1] +
+																	":" + splitString[2] +
+																	" " + splitString[0][1];
+			
+			//check for wakeup
+			var splitThingy = wakeUpTime.split(":");
+			var blue = "" +splitThingy[0] + splitThingy[1] + splitThingy[2];
+			console.log(blue + " " + clock.getHourMinSec());
+			if(clock.getHourMinSec() == blue){
+				//cp.exec(videoAlarm);
+				//clearInterval(refreshId);
+				if (video.paused == true) {
+					// Play the video
+					video.play();
+
+					// Update the button text to 'Pause'
+					playButton.innerHTML = "Pause";
+				}
 			}		
 		}		
 	}	
@@ -126,26 +286,31 @@ var colourID = setInterval(function() {
 	
 }, 200);
 
-//	This loop updates text.
-//45 because anything bellow 50 seems instantaneous
 /*
-var updateButtons = setInterval(function() {
-	var content = fs.readFileSync("myData/data/settings.json");
-	var jsonContent = JSON.parse(content);
-	var isAlarmOn = (jsonContent.alarmOn === "true");
+//validate and display files
+function readURL(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			$('#blah')
+				.attr('src', e.target.result)
+				.width(150)
+				.height(200);
+		};
+
+		reader.readAsDataURL(input.files[0]);
+	}
+	//console.log(input.files[0].name);
+	document.getElementById('alarmFileName').textContent = "Alarm Video: " + input.files[0].name;
+	var tmppath = URL.createObjectURL(input.files[0]);
+	console.log(tmppath + "");
 	
-	//toggle alarm settings:
-	if(isAlarmOn){
-		document.getElementById('alarmSetText').textContent = "Alarm: On"
-	}
-	else{
-		document.getElementById('alarmSetText').textContent = "Alarm: Off"
-	}
-}, 45);
+	cp.exec(tmppath + "");
+	return;
+}
+
 */
-//alarmSet.onclick = button.toggleAlarmSetting;
-
-
 
 
 
