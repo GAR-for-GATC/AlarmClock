@@ -17,13 +17,15 @@ window.onload = function() {
 			video.play();
 
 			// Update the button text to 'Pause'
-			playButton.innerHTML = "Pause";
+			//playButton.innerHTML = "Pause";
+			playButton.setAttribute("src", "myData/data/alarmImages/pause.png");
 		} else {
 			// Pause the video
 			video.pause();
 
 			// Update the button text to 'Play'
-			playButton.innerHTML = "Play";
+			//playButton.innerHTML = "Play";
+			playButton.setAttribute("src", "myData/data/alarmImages/play.png");
 		}
 	});
 	
@@ -33,13 +35,28 @@ window.onload = function() {
 			video.muted = true;
 
 			// Update the button text
-			muteButton.innerHTML = "Unmute";
+			//muteButton.innerHTML = "Unmute";
+			muteButton.setAttribute("src", "myData/data/alarmImages/mute.png");
 		} else {
 			// Unmute the video
 			video.muted = false;
 
 			// Update the button text
-			muteButton.innerHTML = "Mute";
+			//muteButton.innerHTML = "Mute";
+			
+			var currentVol = Math.round(volumeBar.value * 100);
+			if(currentVol > 65){
+				muteButton.setAttribute("src", "myData/data/alarmImages/vol3.png");
+			}
+			else if(currentVol > 32){
+				muteButton.setAttribute("src", "myData/data/alarmImages/vol2.png");
+			}
+			else if(currentVol > 0){
+				muteButton.setAttribute("src", "myData/data/alarmImages/vol1.png");
+			}
+			else{
+				muteButton.setAttribute("src", "myData/data/alarmImages/vol0.png");
+			}
 		}
 	});
 	
@@ -95,7 +112,20 @@ window.onload = function() {
 	volumeBar.addEventListener("change", function() {
 		// Update the video volume
 		video.volume = volumeBar.value;
-		volumenumber.innerHTML = (volumeBar.value * 100) + "%";
+		var volValue = Math.round(volumeBar.value * 100);
+		volumenumber.innerHTML = volValue + "%";
+		if(volValue > 65){
+			muteButton.setAttribute("src", "myData/data/alarmImages/vol3.png");
+		}
+		else if(volValue > 32){
+			muteButton.setAttribute("src", "myData/data/alarmImages/vol2.png");
+		}
+		else if(volValue > 0){
+			muteButton.setAttribute("src", "myData/data/alarmImages/vol1.png");
+		}
+		else{
+			muteButton.setAttribute("src", "myData/data/alarmImages/vol0.png");
+		}
 		
 	});
 }
@@ -240,7 +270,7 @@ var refreshId = setInterval(function() {
 			//check for wakeup
 			var splitThingy = wakeUpTime.split(":");
 			var blue = "" +splitThingy[0] + splitThingy[1] + splitThingy[2];
-			console.log(blue + " " + clock.getHourMinSec());
+			////console.log(blue + " " + clock.getHourMinSec());
 			if(clock.getHourMinSec() == blue){
 				//cp.exec(videoAlarm);
 				//clearInterval(refreshId);

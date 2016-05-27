@@ -89,13 +89,14 @@
 			<div id="video-container">				
 				<video id="video" width="200"></video>
 				<div id="video-controls">
-					<button type="button" id="play-pause" class="play">Play</button>
+					<input type="image" style="outline: none;" src="myData/data/alarmImages/play.png" width="30px" id="play-pause" class="play" alt="submit"></input>
 					<button type="button" id="repeat" class="repeat">NoRepeat</button>
-					<input type="range" id="seek-bar" value="0">
+					<input type="range" id="seek-bar" value="0"
+						style="width:400px; border-radius: 5px;">	
 					<p id="currentTime"></p>
 					<p>/</p>
 					<p id="totalTime"></p>
-					<button type="button" id="mute">Mute</button>
+					<input type="image" style="outline: none;" src="myData/data/alarmImages/vol3.png" width="30px" id="mute"></input>
 					<input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1">
 					<p  id="volume-number"></p>
 				</div><!--video-controls-->
