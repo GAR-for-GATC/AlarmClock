@@ -1,3 +1,49 @@
+
+//seconds is the time to be changed in seconds
+//	Total time is either 0 or some other number.
+//	The other number that total time could be
+//	is the total time of the whole video.  if
+//	the total time of the video has any hours
+//	in it, then set the hours number to "00",
+//	else do not return it.
+//	If absTime = 1, then show the absolute time value
+function secondsToHrMinSec(seconds, totalTime, absTime){
+	
+	
+	var hours = Math.round(( seconds / 3600 ) % 24);
+	var minutes = Math.round(( seconds / 60 ) % 60);
+	var leftoverSeconds = Math.round(seconds % 60);
+	var remainder = parseInt((seconds+"").split(".")[1]);
+	
+	//return total time, with hours, if any
+	if(totalTime != 0){		
+		//if there are hours, display hours.  if not, don't display hours
+		var totalHours = Math.round(( totalTime / 3600 ) % 24);
+		if(totalHours > 0){
+			var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" +
+						(leftoverSeconds  < 10 ? "0" + leftoverSeconds : leftoverSeconds);
+			return result;
+		}
+		if(absTime == 1){
+			var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" +
+						(leftoverSeconds  < 10 ? "0" + leftoverSeconds : leftoverSeconds) + "." + remainder;
+			return result
+		}
+	}
+	if(absTime == 1){
+		var result = (minutes < 10 ? "0" + minutes : minutes) + ":" +
+					(leftoverSeconds  < 10 ? "0" + leftoverSeconds : leftoverSeconds) + "." + remainder;
+		return result
+	}
+	var result = (minutes < 10 ? "0" + minutes : minutes) + ":" +
+					(leftoverSeconds  < 10 ? "0" + leftoverSeconds : leftoverSeconds);
+	return result;	
+	
+	//var returnValue = hours + ":" + minutes + ":" + leftoverSeconds;
+	//return
+}
+
+
 window.onload = function() {
 	var video = document.getElementById("video");
 	var playButton = document.getElementById("play-pause");
@@ -10,6 +56,24 @@ window.onload = function() {
 	//var videoCurrentTime = document.getElementById("video").currentTime;
 	var showTime = document.getElementById("currentTime");
 	
+	
+	
+	//Preload values
+	if(video.readyState != 4 || isNaN(Math.ceil(video.currentTime)) ){
+		showTime.innerHTML = "--";
+	}
+	else{
+		showTime.innerHTML = Math.ceil(video.currentTime)
+	}
+	if(video.readyState != 4 || isNaN(Math.ceil(video.duration)) ){
+		totalTime.innerHTML = "--";
+	}
+	else{
+		totalTime.innerHTML = Math.ceil(video.duration);
+	}
+	//var volValue = Math.round(volumeBar.value * 100);
+	volumenumber.innerHTML = Math.round(volumeBar.value * 100) + "%";
+		
 	
 	playButton.addEventListener("click", function() {
 		if (video.paused == true) {
@@ -89,15 +153,42 @@ window.onload = function() {
 	
 	// Update the seek bar as the video plays
 	video.addEventListener("timeupdate", function() {
+		
+		//if video isnt in a ready state, set time to "--"
+		//console.log(video.currentTime);
 		// Calculate the slider value
 		//var value = (100 / video.duration) * video.currentTime;
-		var value = (100 / Math.ceil(video.duration)) * Math.ceil(video.currentTime);
+		var value = (100 / Math.floor(video.duration)) * Math.floor(video.currentTime);
 		// Update the slider value
 		seekBar.value = value;
+		/*
+		if(Math.floor(video.currentTime) == Math.ceil(video.duration - 1)){
+			seekBar.value = value +1;
+			console.log(value + " " + video.currentTime + " " + video.duration);
+		}
+		else{
+			
+		}*/
+		
 		//update shown time
-		showTime.innerHTML = Math.ceil(video.currentTime);
+		if(video.readyState != 4 || isNaN(Math.floor(video.currentTime)) ){
+			showTime.innerHTML = "--";
+		}
+		else{
+			//showTime.innerHTML = Math.ceil(video.currentTime)
+			showTime.innerHTML = secondsToHrMinSec(Math.floor(video.currentTime), Math.ceil(video.duration), 0);
+		}
+		
 		//console.log(value);
-		totalTime.innerHTML = Math.ceil(video.duration);
+		if(video.readyState != 4 || isNaN(Math.floor(video.duration)) ){
+			totalTime.innerHTML = "--";
+		}
+		else{
+			//totalTime.innerHTML = Math.ceil(video.duration);
+			//Plus 1 to account for any parts of a second footage at the end of the clips
+			totalTime.innerHTML = secondsToHrMinSec(video.duration , Math.ceil(video.duration), 1 );
+		}
+		
 	});
 	
 	// Pause the video when the seek handle is being dragged
@@ -114,7 +205,10 @@ window.onload = function() {
 		video.volume = volumeBar.value;
 		var volValue = Math.round(volumeBar.value * 100);
 		volumenumber.innerHTML = volValue + "%";
-		if(volValue > 65){
+		if(video.muted == true){
+			//do nothing
+		}
+		else if(volValue > 65){
 			muteButton.setAttribute("src", "myData/data/alarmImages/vol3.png");
 		}
 		else if(volValue > 32){
