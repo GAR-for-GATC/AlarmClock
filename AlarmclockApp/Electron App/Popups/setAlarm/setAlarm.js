@@ -4,7 +4,7 @@
 	//fill in form data
 	
 	//var clock = require('./myData/js/time.js');
-	var content = fs.readFileSync("myData/data/settings.json");
+	var content = fs.readFileSync("./resources/app/myData/data/settings.json");
 	var jsonContent = JSON.parse(content);
 	//console.log(jsonContent.wakeUpTime);
 	//since wakeup time is stored in 24 hours, change to 12 hours
@@ -629,7 +629,7 @@ function checkSubmit(){
 function submitValues(){
 	//package data
 	var check12 = document.getElementsByName('checkBox12')[0];
-	var togAlarmContent = fs.readFileSync("myData/data/settings.json");
+	var togAlarmContent = fs.readFileSync("./resources/app/myData/data/settings.json");
 	var togAlarmJson = JSON.parse(togAlarmContent);
 	
 	if(check12.checked){
@@ -670,7 +670,7 @@ function submitValues(){
 		var output = values[0] + ":" + values[1] + ":" + values[2];	
 		console.log(output, + " " + amOrPm );
 		togAlarmJson.wakeUpTime = output;
-		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togAlarmJson));
+		fs.writeFileSync("./resources/app/myData/data/settings.json", JSON.stringify(togAlarmJson));
 		window.close();
 		return;
 	}
@@ -696,7 +696,7 @@ function submitValues(){
 		var output = values[0] + ":" + values[1] + ":" + values[2];	
 		console.log(output );
 		togAlarmJson.wakeUpTime = output;
-		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togAlarmJson));
+		fs.writeFileSync("./resources/app/myData/data/settings.json", JSON.stringify(togAlarmJson));
 		window.close();
 		return;
 	}

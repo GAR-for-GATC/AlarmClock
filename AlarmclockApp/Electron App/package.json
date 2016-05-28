@@ -1,17 +1,10 @@
 {
-  "name": "electron-app",
+  "name": "test3",
   "version": "1.0.0",
   "description": "",
-  "main": "startup.js",
-  "dependencies": {
-    "pretty-bytes": "^2.0.1"
-  },
-  "devDependencies": {
-    "electron-prebuilt": "^0.35.2",
-    "shelljs": "^0.7.0"
-  },
+  "main": "index.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "electron ."
   },
   "author": "",
   "license": "ISC"

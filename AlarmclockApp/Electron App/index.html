@@ -73,7 +73,7 @@
 		</center>
 		
 		
-		<div style="position: absolute; bottom: 5px;">
+		<div style="position: fixed; bottom: 15px; float:left;">
 			<div>
 				<button id="alarmSet" onClick="button.toggleAlarmSetting();">Set</button>
 				<font style="font-size:19px;" id="alarmSetText" >Alarm: Off</font>		
@@ -82,28 +82,32 @@
 				<button id="alarmTime" onClick="button.openSetAlarm();">Set</button>
 				<font style="font-size:19px;" id="alarmTimeText">Alarm Time: None</font>		
 			</div>
-			
-			
-			<input id="videoInput" onchange="localFileVideoPlayer2();" 
-					type="file" accept="video/*"/>
-			<div id="video-container">				
-				<video id="video" width="200"></video>
-				<div id="video-controls">
-					<input type="image" style="outline: none;" src="myData/data/alarmImages/play.png" width="30px" id="play-pause" class="play" alt="submit"></input>
-					<button type="button" id="repeat" class="repeat">NoRepeat</button>
-					<input type="range" id="seek-bar" value="0"
-						style="width:400px; border-radius: 5px;">	
-					<p id="currentTime"></p>
-					<p>/</p>
-					<p id="totalTime"></p>
-					<input type="image" style="outline: none;" src="myData/data/alarmImages/vol3.png" width="30px" id="mute"></input>
-					<input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1">
-					<p  id="volume-number"></p>
-				</div><!--video-controls-->
-			</div><!--video-container-->	
-			
-			
-		</div><!--Footer -->
+			<input id="videoInput" onchange="localFileVideoPlayer2();" style="float:left;"
+					type="file" accept="video/*"/>	
+		</div>
+		
+		
+		<div id="video-container" style="position: absolute; bottom: 15px; right:15px;float:right;width:67%;" >
+			<input type="range" id="seek-bar" value="0"
+					style="width:100%; border-radius: 5px; position:absolute; float:right;">		
+			<video id="video"  style="width:30%;float;left;margin-top:25px;margin-left:5px;"></video>
+			<div id="video-controls" style="position:block;float:right; width:67%; margin-top:25px;padding:0px;">
+				<div>
+					<p id="currentTime" style="float:left; margin:5px;"></p>
+					<p style="float:left;margin:5px;">&nbsp;/&nbsp;</p>
+					<p id="totalTime" style="float:left;margin:5px;"></p>
+				</div>
+				<div style="position:absolute; float:left; margin-top:30px;">
+					<input type="image" style="outline: none; float:left; padding-right:7px;" src="myData/data/alarmImages/play.png" width="30px" id="play-pause" class="play" alt="submit"></input>
+					<button type="button" id="repeat" class="repeat" style="float:left;margin-top:5px;margin-right:10px;">NoRepeat</button>
+						
+					
+					<input type="image" style="outline: none; float:left; margin-top:2px;" src="myData/data/alarmImages/vol3.png" width="30px" id="mute"></input>
+					<input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1" style="float:left;margin-top:7px;">
+					<p  id="volume-number" style="float:left;margin:5px;margin-top:7px;"></p>
+				</div>
+			</div><!--video-controls-->
+		</div><!--video-container-->	
 		
 	</div><!--bodyArea-->
 	

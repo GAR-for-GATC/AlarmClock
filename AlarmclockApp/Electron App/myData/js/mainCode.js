@@ -12,8 +12,10 @@ function secondsToHrMinSec(seconds, totalTime, absTime){
 	
 	var hours = Math.round(( seconds / 3600 ) % 24);
 	var minutes = Math.round(( seconds / 60 ) % 60);
-	var leftoverSeconds = Math.round(seconds % 60);
-	var remainder = parseInt((seconds+"").split(".")[1]);
+	var leftoverSeconds = Math.floor(seconds % 60);
+	//console.log(leftoverSeconds);
+	var remainder = parseInt( ( round(seconds, 2)+"" ).split(".")[1] );
+	//console.log(isNaN(parseInt((seconds+"").split(".")[1])) + " " + remainder + " " + seconds + " " + round(4.5677, 2));
 	
 	//return total time, with hours, if any
 	if(totalTime != 0){		
@@ -24,13 +26,16 @@ function secondsToHrMinSec(seconds, totalTime, absTime){
 						(leftoverSeconds  < 10 ? "0" + leftoverSeconds : leftoverSeconds);
 			return result;
 		}
-		if(absTime == 1){
+		//console.log(totalHours);
+		if(absTime == 1 && totalHours > 0){
+			
 			var result = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" +
 						(leftoverSeconds  < 10 ? "0" + leftoverSeconds : leftoverSeconds) + "." + remainder;
 			return result
 		}
 	}
 	if(absTime == 1){
+		//console.log("cocks");
 		var result = (minutes < 10 ? "0" + minutes : minutes) + ":" +
 					(leftoverSeconds  < 10 ? "0" + leftoverSeconds : leftoverSeconds) + "." + remainder;
 		return result
@@ -43,8 +48,28 @@ function secondsToHrMinSec(seconds, totalTime, absTime){
 	//return
 }
 
+function round(value, exp) {
+  if (typeof exp === 'undefined' || +exp === 0)
+    return Math.round(value);
+
+  value = +value;
+  exp = +exp;
+
+  if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0))
+    return NaN;
+
+  // Shift
+  value = value.toString().split('e');
+  value = Math.round(+(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp)));
+
+  // Shift back
+  value = value.toString().split('e');
+  return +(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp));
+}
 
 window.onload = function() {
+	"use strict";
+	//y = 3.14; 
 	var video = document.getElementById("video");
 	var playButton = document.getElementById("play-pause");
 	var muteButton = document.getElementById("mute");
@@ -55,7 +80,7 @@ window.onload = function() {
 	
 	//var videoCurrentTime = document.getElementById("video").currentTime;
 	var showTime = document.getElementById("currentTime");
-	
+	var totalTime = document.getElementById("totalTime");
 	
 	
 	//Preload values
@@ -73,7 +98,22 @@ window.onload = function() {
 	}
 	//var volValue = Math.round(volumeBar.value * 100);
 	volumenumber.innerHTML = Math.round(volumeBar.value * 100) + "%";
+	
+	
+	
+	
+	
+	video.onloadedmetadata = function(){
+		//console.log("cocks");
 		
+		//var totalTime = document.getElementById("totalTime");
+		//set initial times
+		//console.log(video.duration);
+		totalTime.innerHTML = secondsToHrMinSec(video.duration , Math.ceil(video.duration), 1 );
+		//var showTime = document.getElementById("currentTime");
+		showTime.innerHTML = secondsToHrMinSec(video.currentTime, Math.ceil(video.duration), 0);	
+		
+	};
 	
 	playButton.addEventListener("click", function() {
 		if (video.paused == true) {
@@ -158,7 +198,7 @@ window.onload = function() {
 		//console.log(video.currentTime);
 		// Calculate the slider value
 		//var value = (100 / video.duration) * video.currentTime;
-		var value = (100 / Math.floor(video.duration)) * Math.floor(video.currentTime);
+		var value = (100 / video.duration) * video.currentTime;
 		// Update the slider value
 		seekBar.value = value;
 		/*
@@ -176,7 +216,7 @@ window.onload = function() {
 		}
 		else{
 			//showTime.innerHTML = Math.ceil(video.currentTime)
-			showTime.innerHTML = secondsToHrMinSec(Math.floor(video.currentTime), Math.ceil(video.duration), 0);
+			showTime.innerHTML = secondsToHrMinSec(video.currentTime, Math.ceil(video.duration), 0);
 		}
 		
 		//console.log(value);
@@ -187,6 +227,7 @@ window.onload = function() {
 			//totalTime.innerHTML = Math.ceil(video.duration);
 			//Plus 1 to account for any parts of a second footage at the end of the clips
 			totalTime.innerHTML = secondsToHrMinSec(video.duration , Math.ceil(video.duration), 1 );
+			//console.log(video.duration);
 		}
 		
 	});
@@ -237,11 +278,18 @@ function localFileVideoPlayer2(){
 	//videoNode.width=160;
 	 
     videoNode.src = fileURL;
+	
+	//update time properties
+	//var video = document.getElementById("video");
+	
+	
+	
 }
 //document.getElementById('debug').textContent = 'cocks';
 
 
 //Get the time and display on screen
+
 var util = require('util');
 var cp = require("child_process");
 var fs = require("fs");
@@ -250,7 +298,9 @@ var color = require('./myData/js/color.js');
 var options = require('./myData/js/options.js');
 var button = require('./myData/js/button.js');
 
-var content = fs.readFileSync("myData/data/settings.json");
+
+var content = fs.readFileSync("./resources/app/myData/data/settings.json");
+
 var jsonContent = JSON.parse(content);
 //init alarm time
 var initAlarm = (jsonContent.alarmOn === "true");
@@ -305,7 +355,9 @@ var refreshId = setInterval(function() {
 	*/
 	
 	//Update variables.
-	var content = fs.readFileSync("myData/data/settings.json");
+	//console.log("cocks2");
+	var content = fs.readFileSync("./resources/app/myData/data/settings.json");
+	//console.log("cocks1");
 	var jsonContent = JSON.parse(content);
 	hourTime24	= (jsonContent.hourTime24 === "true");
 	alarmOn = (jsonContent.alarmOn === "true");
@@ -334,12 +386,15 @@ var refreshId = setInterval(function() {
 			if(clock.getHourMinSec() == blue){
 				//cp.exec(videoAlarm);
 				//clearInterval(refreshId);
+				var video = document.getElementById("video");
+				var playButton = document.getElementById("play-pause");
 				if (video.paused == true) {
 					// Play the video
 					video.play();
 
 					// Update the button text to 'Pause'
-					playButton.innerHTML = "Pause";
+					//playButton.innerHTML = "Pause";
+					playButton.setAttribute("src", "myData/data/alarmImages/pause.png");
 				}
 			}
 		}
@@ -368,12 +423,16 @@ var refreshId = setInterval(function() {
 			if(clock.getHourMinSec() == blue){
 				//cp.exec(videoAlarm);
 				//clearInterval(refreshId);
+				var video = document.getElementById("video");
+				var playButton = document.getElementById("play-pause");
 				if (video.paused == true) {
+					
 					// Play the video
 					video.play();
 
 					// Update the button text to 'Pause'
-					playButton.innerHTML = "Pause";
+					//playButton.innerHTML = "Pause";
+					playButton.setAttribute("src", "myData/data/alarmImages/pause.png");
 				}
 			}		
 		}		

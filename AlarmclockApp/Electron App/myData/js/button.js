@@ -7,7 +7,7 @@ var alarmSet = document.getElementById('alarmSet');
 
 exports.toggleAlarmSetting = function() {
     //alert('Yay!');
-	var togAlarmContent = fs.readFileSync("myData/data/settings.json");
+	var togAlarmContent = fs.readFileSync("./resources/app/myData/data/settings.json");
 	var togAlarmJson = JSON.parse(togAlarmContent);
 	var currentAlarmSetting	= (togAlarmJson.alarmOn === "true");
 	
@@ -15,14 +15,14 @@ exports.toggleAlarmSetting = function() {
 		console.log("purple");
 		//alarmOn = false;
 		togAlarmJson.alarmOn = "false";
-		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togAlarmJson));
+		fs.writeFileSync("./resources/app/myData/data/settings.json", JSON.stringify(togAlarmJson));
 		document.getElementById('alarmSetText').textContent = "Alarm: Off"
 	}
 	else{
 		//alarmOn = true;
 		console.log("cocks");
 		togAlarmJson.alarmOn = "true";
-		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togAlarmJson));
+		fs.writeFileSync("./resources/app/myData/data/settings.json", JSON.stringify(togAlarmJson));
 		document.getElementById('alarmSetText').textContent = "Alarm: On"
 	}
 	return;	

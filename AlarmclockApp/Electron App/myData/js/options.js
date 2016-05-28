@@ -6,6 +6,11 @@ var exports = module.exports = {};
 exports.exitProgram = function(){
 	//document.getElementById('debug').textContent = 'cocks';
 	//window.open('','_parent',''); 
+	//if a video is open, pause it first before closing
+	var video = document.getElementById("video");
+	if (video.paused == false){
+		video.pause();
+	}
 	window.close();
 	return;	
 }
@@ -15,6 +20,10 @@ exports.keypressCheck = function (){
 	$(document).keypress("w",function(e) {
 		if(e.ctrlKey){	
 			//window.open('','_parent',''); 
+			var video = document.getElementById("video");
+			if (video.paused == false){
+				video.pause();
+			}
 			window.close();
 			return;	
 		} 
@@ -24,19 +33,19 @@ exports.keypressCheck = function (){
 
 //Toggles the 12/14 hour value in the json file/////////////
 exports.toggleTime = function (){
-	var togTimeContent = fs.readFileSync("myData/data/settings.json");
+	var togTimeContent = fs.readFileSync("./resources/app/myData/data/settings.json");
 	var togTimeJson = JSON.parse(togTimeContent);
 	var currentSetting	= (togTimeJson.hourTime24 === "true");
 	//if 24hourtime is true, change to false
 	if(currentSetting){
 		
 		togTimeJson.hourTime24 = "false";
-		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togTimeJson));
+		fs.writeFileSync("./resources/app/myData/data/settings.json", JSON.stringify(togTimeJson));
 	}
 	else{
 		
 		togTimeJson.hourTime24 = "true";
-		fs.writeFileSync("myData/data/settings.json", JSON.stringify(togTimeJson));
+		fs.writeFileSync("./resources/app/myData/data/settings.json", JSON.stringify(togTimeJson));
 	}
 	//window.location.reload();
 	return;
