@@ -14,7 +14,7 @@ app.on('ready', function(){
 		width:900,
 		height: 600	
 	});
-	mainWindow.openDevTools();
+	//mainWindow.openDevTools();
 	
 	//"file://" means local file, '__dirname' means directory name
 	mainWindow.loadURL('file://' + __dirname + '/index.html');	

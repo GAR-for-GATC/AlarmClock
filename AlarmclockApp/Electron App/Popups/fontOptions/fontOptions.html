@@ -2,15 +2,18 @@
 <html >
 <body style="margin:15px;">
 	<center><h3>Font Options</h3></center>
-	<select name="dropdown">
-			<option value="AM" selected>AM</option>
+	<select name="dropdown1" >
+			<option value="AM" selected>Default</option>
 			<option value="PM">PM</option>
 	</select>&nbsp;Clock Font<br><br>
-	<select name="dropdown">
-			<option value="AM" selected>AM</option>
-			<option value="PM">PM</option>
-	</select>&nbsp;Clock Font Size<br><br>
-	<input type="radio"/>&nbsp;Set Clock Font relative to Screen Size<br>
+	<input maxlength="6" size="2" type="text" name="entry0"/>&nbsp;Date Font Size<br><br>
+	<div style="display:block;">
+		<input maxlength="6" size="2" type="text" name="entry1"/>&nbsp;Hours/Mins Font Size&nbsp;&nbsp;
+		<input maxlength="6" size="2" type="text" name="entry2"/>&nbsp;Seconds Font Size&nbsp;&nbsp;
+		<input maxlength="6" size="2" type="text" name="entry3"/>&nbsp;AM/PM Font Size<br><br>
+		
+	</div>
+	<input type="radio"/>&nbsp;Set Clock Font relative to Window Size<br>
 	<div style="margin-top:10px;"></div>
 	<input maxlength="3" size="2" type="text" name="12hour"/>&nbsp;Set Size to relative screen size (0-100%)&nbsp;
 	
@@ -19,5 +22,7 @@
 		<button style="margin: 5px 25px;">Cancel</button>
 		<button style="margin: 5px 25px;">Restore Defaults</button>
 	</center>
+	
+	<script src="fontOptions.js"></script>
 </body>
 </html>

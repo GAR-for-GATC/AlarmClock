@@ -1,0 +1,1 @@
+electron-packager C:\Users\Rawr\Desktop\Code_and_stuff\Electron_Test\test3 test-App --platform=win32 --arch=all --version=1.0.0 --out=StagingNini
