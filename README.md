@@ -10,5 +10,6 @@ The GUI application needs to be packaged using electron-packager, installed usin
 ```
 electron-packager C:\path_to_folder_where_the_source_code_is test-App --platform=win32 --arch=all --version=1.0.0 --out=SomeOutputName
 ```
-Keep in mind that you can streamline this build process to decrease file size.
+Keep in mind that you can decrease the file size of the final build by modifying this build command, since the final build size is fairly large for what it does.
+
 Inside the program you can select your own video file, using an Mp4, or other web format, to run when the wake up time is reached.  Unfortunately this program does not support other formats, since that would involve building a flash player instead of using HTML5's built-in video playback methods.
