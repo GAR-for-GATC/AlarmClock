@@ -6,7 +6,7 @@ A set of different alarm clocks that use Node.js and Electron.  The command line
 The Cmd Line Application requires the user to update the source code to set the alarm.  When run, a command prompt will be opened and upon the alarm time being reached, the program will open a file that you specify in the program.  The batch file that's included runs this file using Node.js.
 
 #####GUI Application Details
-The GUI application is currently used through packaging using electron-packager, installed using npm.  The command that used to package this is:
+The GUI application needs to be packaged using electron-packager, installed using npm.  The application won't work as expected if it is run without packaging, since the file pathways had to be changed for packaging to work correctly.  The command used to package this is:
 ```
 electron-packager C:\path_to_folder_where_the_source_code_is test-App --platform=win32 --arch=all --version=1.0.0 --out=SomeOutputName
 ```
