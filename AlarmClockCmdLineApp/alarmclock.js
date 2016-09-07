@@ -5,13 +5,13 @@
 // 		ex: 6.00 for 6AM, decimals represent minutes,
 //		so 6.30 stands for 6:30AM.  Time is in 24 hours.
 //		Be sure that the video/music file is in the same
-//		directory as this file.
+//		directory ashis file.
 //		If 24 hour time is changed to false, use 12 hour time.
 // 2) Run using Node.js
 ///////////////////////////////////
 var videoAlarm 	= "test.mp4";
-var wakeUpTime 	= 6.17 ; 
-var isAmPm		= "pm";			//Ignored if hourTime24 is true.
+var wakeUpTime 	= '7.50'; 
+var isAmPm		= "am";			//Ignored if hourTime24 is true.
 var hourTime24	= false;
 //////////////////////////////////
 
@@ -24,14 +24,23 @@ if(!hourTime24){
 	}
 }
 
+//parsing alarm hours
 var wakeHour = Math.floor(wakeUpTime);
 wakeHour = (wakeHour < 10 ? "0" : "") + wakeHour;
+
+//parsing the alarm minutes
 var wakeMin = (wakeUpTime + "").split(".")[1];
 if(wakeMin == null){
 	wakeMin = "0";
 }
-wakeMin = (wakeMin < 10 ? "0" : "") + wakeMin;
-
+if(wakeMin > 60 ||  wakeMin.length > 2 ){	
+	console.log(wakeMin + ' is not a valid input for minutes ' +
+				'or the maximum number\nof characters have been exceeded');
+	return(0);
+}
+else if(wakeMin < 10 && !(wakeMin.startsWith("0")) ){
+	wakeMin =  wakeMin + "0";
+}
 
 
 
@@ -42,8 +51,7 @@ var refreshId = setInterval(function() {
 		console.log("\t= " + getDateTime()+"\t=");	
 		console.log("\t= Alarm at: " + wakeHour + ":" + wakeMin + "\t\t=\n\t=\t\t\t\t=");
 		console.log("\t=================================\n");
-		//console.log(""+wakeHour+wakeMin);
-		//console.log(getHourMin());
+		
 		if(getHourMin() == ""+wakeHour+wakeMin){
 			cp.exec(videoAlarm);
 			clearInterval(refreshId);
@@ -55,8 +63,7 @@ var refreshId = setInterval(function() {
 		var hourTime12 = changeToAMPM(wakeHour);
 		console.log("\t= Alarm at: " + hourTime12[0] + ":" + wakeMin + hourTime12[1] +  "\t\t=\n\t=\t\t\t\t=");
 		console.log("\t=================================\n");
-		//console.log(""+wakeHour+wakeMin);
-		//console.log(getHourMin());
+
 		if(getHourMin() == ""+wakeHour+wakeMin){
 			cp.exec(videoAlarm);
 			clearInterval(refreshId);
